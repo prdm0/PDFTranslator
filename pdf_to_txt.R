@@ -23,5 +23,5 @@ pdf_to_text <- function(file, start = NULL, end = NULL, args = NULL) {
   system()
 }
 
-pdf_to_text(file = "/home/prdm0/Downloads/traducao/An Introduction to Statistical Learning_ W - Gareth James.pdf",
-            start = 40, end = 45)
+# pdf_to_text(file = "/home/prdm0/Downloads/traducao/An Introduction to Statistical Learning_ W - Gareth James.pdf",
+#             start = 40, end = 45)
