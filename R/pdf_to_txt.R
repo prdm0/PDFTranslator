@@ -3,13 +3,14 @@ library(magrittr)
 library(fs)
 library(pdftools)
 
-
-#' @importFrom glue glue
+#' @title Converting a PDF to a text file
 #' @importFrom magrittr `%>%`
+#' @importFrom glue glue
 #' @importFrom fs path_ext_remove
 #' @importFrom pdftools pdf_ocr_text
+#' @export
 pdf_to_text <- function(file, start = NULL, end = NULL, args = NULL, show = TRUE) {
-  file_name <- path_ext_remove(file)
+  file_name <- fs::path_ext_remove(file)
 
   if(is.null(args))
     args <- "-layout"
@@ -30,7 +31,7 @@ pdf_to_text <- function(file, start = NULL, end = NULL, args = NULL, show = TRUE
 
   if(length(readLines(glue("{file_name}.txt"), warn = FALSE)) == 1L) {
       glue("{file}") %>%
-      pdf_ocr_text(pages = start:end) %>%
+      pdftools::pdf_ocr_text(pages = start:end) %>%
       cat(file = glue("{file_name}.txt"))
   }
 
@@ -38,5 +39,5 @@ pdf_to_text <- function(file, start = NULL, end = NULL, args = NULL, show = TRUE
     file.edit(glue("{file_name}.txt"), title = "Generated text file")
 }
 
-pdf_to_text(file = "/home/prdm0/Downloads/Computer Age Statistical Inference - Bradley Efron.pdf",
-            start = 2)
+# pdf_to_text(file = "/home/prdm0/Downloads/Computer Age Statistical Inference - Bradley Efron.pdf",
+#             start = 2)
