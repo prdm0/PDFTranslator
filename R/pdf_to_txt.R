@@ -2,9 +2,12 @@ library(glue)
 library(magrittr)
 library(fs)
 library(pdftools)
-library(tesseract)
-library(stringr)
 
+
+#' @importFrom glue glue
+#' @importFrom magrittr `%>%`
+#' @importFrom fs path_ext_remove
+#' @importFrom pdftools pdf_ocr_text
 pdf_to_text <- function(file, start = NULL, end = NULL, args = NULL, show = TRUE) {
   file_name <- path_ext_remove(file)
 
