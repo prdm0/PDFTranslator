@@ -6,28 +6,22 @@ library(pdftools)
 #' @title Converting a PDF to a text file
 #' @importFrom magrittr `%>%`
 #' @importFrom glue glue
-#' @importFrom fs path_ext_remove
-#' @importFrom pdftools pdf_ocr_text
+#' @importFrom fs path_ext_remove file_show
+#' @importFrom pdftools pdf_ocr_text pdf_text pdf_subset
 #' @export
-pdf_to_text <- function(file, start = NULL, end = NULL, args = NULL, show = TRUE) {
+pdf_to_text <- function(file, start = NULL, end = NULL, show = TRUE) {
   file_name <- fs::path_ext_remove(file)
 
-  if(is.null(args))
-    args <- "-layout"
+  if(is.null(start))
+    stop("Enter a page for the start argument.")
 
-  if(is.null(start)) {
-    interval <- ""
-  } else {
-    if(is.null(end)) {
-      end <- start
-    }
-    interval <- glue("-f {start} -l {end}")
-  }
+  if(is.null(end))
+    end <- start
 
-  args <- glue("{args} {interval}")
-
-  glue("pdftotext {args} '{file}' '{file_name}.txt'") %>%
-  system()
+  file %>%
+  pdftools::pdf_subset(pages = start:end) %>%
+  pdftools::pdf_text() %>%
+  cat(file = glue("{file_name}.txt"))
 
   if(length(readLines(glue("{file_name}.txt"), warn = FALSE)) == 1L) {
       glue("{file}") %>%
@@ -36,8 +30,8 @@ pdf_to_text <- function(file, start = NULL, end = NULL, args = NULL, show = TRUE
   }
 
   if(isTRUE(show))
-    file.edit(glue("{file_name}.txt"), title = "Generated text file")
+    fs::file_show(glue("{file_name}.txt"))
 }
 
-# pdf_to_text(file = "/home/prdm0/Downloads/Computer Age Statistical Inference - Bradley Efron.pdf",
-#             start = 2)
+pdf_to_text(file = "/home/prdm0/Downloads/Computer Age Statistical Inference - Bradley Efron.pdf",
+            start = 1, show = FALSE)

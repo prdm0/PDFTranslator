@@ -4,7 +4,7 @@
 \alias{pdf_to_text}
 \title{Converting a PDF to a text file}
 \usage{
-pdf_to_text(file, start = NULL, end = NULL, args = NULL, show = TRUE)
+pdf_to_text(file, start = NULL, end = NULL, show = TRUE)
 }
 \description{
 Converting a PDF to a text file
