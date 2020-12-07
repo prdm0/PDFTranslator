@@ -2,6 +2,20 @@ library(glue)
 library(magrittr)
 library(fs)
 library(pdftools)
+library(translateR)
+
+#
+# test <- function(){
+#   glue("R --slave --vanilla -e  \"system('/home/prdm0/Downloads/PDFTranslator/inst/bin/crow-translate-2.6.1-Linux/bin/crow -h')\"") %>%
+#     system()
+# }
+#
+#
+# crow <- function(file, input_lang = "en", output_lang = "pt") {
+# #
+# }
+
+
 
 #' @title Converting a PDF to a text file
 #' @importFrom magrittr `%>%`
@@ -34,4 +48,4 @@ pdf_to_text <- function(file, start = NULL, end = NULL, show = TRUE) {
 }
 
 pdf_to_text(file = "/home/prdm0/Downloads/Computer Age Statistical Inference - Bradley Efron.pdf",
-            start = 1, show = FALSE)
+            start = 321)
